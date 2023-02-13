@@ -1,0 +1,6 @@
+projectKey=recovo
+serverUrl=http://code-quality.lftechnology.com
+serverVersion=8.4.1.35646
+dashboardUrl=http://code-quality.lftechnology.com/dashboard?id=recovo
+ceTaskId=AXQFQX8X6ffOiZ7atFY1
+ceTaskUrl=http://code-quality.lftechnology.com/api/ce/task?id=AXQFQX8X6ffOiZ7atFY1

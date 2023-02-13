@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+services:
+  - postgresql
+env: >
+  NODE_ENV=test
+  TEST_DB_COMMON_NAME=recovo_common_test
+  TEST_DB_TENANT_NAME=recovo_tenant_test
+  DB_CLIENT=pg
+  DB_PASSWORD=''
+  DB_PORT='5432'
+  DB_USER='postgres'
+before_script:
+  - yarn build
+  - psql -c 'create database recovo_common_test;' -U postgres
+  - psql -c 'create database recovo_tenant_test;' -U postgres
+script:
+  - yarn test:admin

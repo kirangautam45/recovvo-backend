@@ -1,0 +1,51 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: prod-
+commonLabels:
+  app: recovvo-api
+namespace: prod-recovvo-api
+resources:
+- ../../base
+images:
+- name: saas-web-api
+  newName: 790723374872.dkr.ecr.us-east-1.amazonaws.com/recovvo-prod
+  newTag: saas-web-api-master-8c04f69
+
+configMapGenerator:
+- literals:
+  - NODE_ENV=prod
+  - APP_HOST=0.0.0.0
+  - APP_PORT=8000
+  - CODE_SOURCE="./"
+  - DB_CLIENT=pg
+  - DB_HOST=prod-recovvo-serverless-db.cluster-cekvtrbjatiy.us-east-1.rds.amazonaws.com
+  - DB_PORT=5432
+  - DB_USER=recovvo
+  - DB_PASSWORD=5y2It5lsdbV1KqGGBlkM
+  - COMMON_DB_NAME=db_common
+  - LOCAL_DB_NAME=db_tenant
+  - LOGGING_DIR=logs
+  - LOGGING_LEVEL=debug
+  - TEST_APP_PORT=8080
+  - TEST_DB_NAME=app_test
+  - ACCESS_TOKEN_DURATION=24h
+  - REFRESH_TOKEN_DURATION=2d
+  - INVITATION_EMAIL_DURATION=48h
+  - ACCESS_TOKEN_SECRET_KEY=DvRqIBeaBWezOUUiDpM2mx5hyFOE26i6
+  - REFRESH_TOKEN_SECRET_KEY=lJST9sQfrgrIaJl6IsA1ba0zfrhocmpT
+  - INVITATION_EMAIL_SECRET_KEY=4nVWLFkbY5Q3NlEqIYzGgaphWbAS0xD1
+  - REDIRECTION_URL='https://app.recovvo.com/verify-email/'
+  - SENDER_EMAIL='noreply@recovvo.com'
+  - GOOGLE_CLIENT_ID=112308708746-136rao04jvcus3pkiq01vrosbsk7sac7.apps.googleusercontent.com
+  - GOOGLE_SECRET=xR6JwoYIso0JUZQT61FWHwxX
+  - AWS_REGION=us-east-2
+  - AWS_S3_REGION=us-east-1
+  - AWS_S3_BUCKET=prod-recovvo-attachments
+  - PRESIGNED_URL_EXPIRATION=60
+  - ETL_ENDPOINT='http://dev-etl-http.dev-etl-provider-core:7000'
+  - MIXPANEL_TOKEN=5c6555a7eb0f19f064d2bf7bb0d83e63
+  - DEVELOPER_EMAIL=developers@recovvo.com
+  - SECRET_MANAGER_REGION=us-east-1
+  - SECRET_MANAGER_SECRET_ID=prod-recovvo-credentials
+  - SALES_EMAIL=sales@recovvo.com
+  name: recovvo-api-configmap

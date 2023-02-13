@@ -1,0 +1,51 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: uat-
+commonLabels:
+  app: recovvo-api
+namespace: uat-recovvo-api
+resources:
+- ../../base
+images:
+- name: saas-web-api
+  newName: 790723374872.dkr.ecr.us-east-2.amazonaws.com/recovvo-uat
+  newTag: saas-web-api-uat-1e87e06
+configMapGenerator:
+- literals:
+  - NODE_ENV=uat
+  - APP_HOST=0.0.0.0
+  - APP_PORT=8000
+  - CODE_SOURCE="./"
+  - DB_CLIENT=pg
+  - DB_HOST=recovvo-postgresql.uat-postgres.svc.cluster.local
+  - DB_PORT=5432
+  - DB_USER=recovvo
+  - DB_PASSWORD=recovvo
+  - COMMON_DB_NAME=db_common
+  - LOCAL_DB_NAME=db_tenant
+  - LOGGING_DIR=logs
+  - LOGGING_LEVEL=debug
+  - TEST_APP_PORT=8080
+  - TEST_DB_NAME=app_test
+  - ACCESS_TOKEN_DURATION=24h
+  - REFRESH_TOKEN_DURATION=2d
+  - INVITATION_EMAIL_DURATION=48h
+  - ACCESS_TOKEN_SECRET_KEY=<ACCESS_TOKEN_SECRET_KEY>
+  - REFRESH_TOKEN_SECRET_KEY=REFRESH_TOKEN_SECRET_KEY>
+  - INVITATION_EMAIL_SECRET_KEY=<INVITATION_EMAIL_SECRET_KEY>
+  - REDIRECTION_URL='https://app.uat.recovvo.com/verify-email/'
+  - SENDER_EMAIL='noreply@recovvo.com'
+  - GOOGLE_CLIENT_ID=112308708746-fl7j5vtlm9g8eghl0bcg681erqda2smh.apps.googleusercontent.com
+  - GOOGLE_SECRET=9uU_DXajKLq_gR48JzW9LhAy
+  - AWS_REGION=us-east-2
+  - AWS_S3_REGION=us-east-2
+  - AWS_S3_BUCKET=uat-recovvo-attachments
+  - PRESIGNED_URL_EXPIRATION=60
+  - ETL_ENDPOINT='http://uat-etl-http.uat-etl-provider-core:7000'
+  - MIXPANEL_TOKEN=ca14b0a27bea7ce3812fb273eaa6ad82
+  - DEVELOPER_EMAIL=recovo@lftechnology.com.np
+  - SECRET_MANAGER_REGION=us-east-2
+  - SECRET_MANAGER_SECRET_ID=uat-recovvo-credentials
+  - SALES_EMAIL=spandanpyakurel@lftechnology.com.np
+  - OUTLOOK_CLIENT_ID=158b3f15-95b5-4094-aeba-ced4128f947f
+  name: recovvo-api-configmap

@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Recovvo",
+      "Group": "Recovvo Inc.",
+      "Port": 5432,
+      "Username": "postgres",
+      "Host": "postgres",
+      "SSLMode": "prefer",
+      "Password": "recovvo",
+      "MaintenanceDB": "postgres",
+      "PassFile": "/pgadmin4/pgpass.conf"
+    }
+  }
+}

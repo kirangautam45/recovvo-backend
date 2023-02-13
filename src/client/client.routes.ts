@@ -1,0 +1,40 @@
+import { Router } from 'express';
+
+import pdfRoutes from './pdf/pdf.routes';
+import userRoutes from './user/user.routes';
+import contactRoutes from './contact/contact.routes';
+import serviceRoutes from './services/service.routes';
+import providerRoutes from './provider/provider.routes';
+import industryRoutes from './industry/industry.routes';
+import departmentRoutes from './department/department.routes';
+import aliasRoutes from './userAliasMappings/userAlias.routes';
+import messagePartRoutes from './messagePart/messagePart.routes';
+import usageReportRoutes from './usageReport/usageReport.routes';
+import organizationRoutes from './organization/organization.routes';
+import clientDomainRoutes from './clientDomain/clientDomain.routes';
+import searchReportRoutes from './searchReport/searchReport.routes';
+import suppressionListRoutes from './suppressionList/suppressionList.routes';
+import organizationSizeRoutes from './organizationSize/organizationSize.routes';
+import providerUserThreadRoutes from './providerUserThread/providerUserThread.routes';
+import organizationOperationRoutes from './organizationOperation/organizationOperation.routes';
+
+const router: Router = Router();
+
+router.use('/pdf', pdfRoutes);
+router.use('/contacts', contactRoutes);
+router.use('/', providerRoutes);
+router.use('/', industryRoutes);
+router.use('/users', userRoutes);
+router.use('/', departmentRoutes);
+router.use('', providerUserThreadRoutes);
+router.use('/service', serviceRoutes);
+router.use('/', organizationSizeRoutes);
+router.use('/message-parts', messagePartRoutes);
+router.use('/organization', organizationRoutes);
+router.use('/client-domain', clientDomainRoutes);
+router.use('/suppression-list', suppressionListRoutes);
+router.use('/organization-operation', organizationOperationRoutes);
+router.use('/usage-report', usageReportRoutes);
+router.use('/aliases', aliasRoutes);
+router.use('/search-report', searchReportRoutes);
+export default router;

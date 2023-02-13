@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: recovvo-api
+  name: recovvo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recovvo-api
+  template:
+    metadata:
+      labels: 
+        app: recovvo-api
+    spec:
+      containers:
+        - name: saas-web-api
+          image: saas-web-api
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: IfNotPresent
+          resources:
+              limits:
+                cpu: "512m"
+          envFrom:
+            - configMapRef:
+                name: recovvo-api-configmap
+          resources:
+              limits:
+                cpu: "512m"

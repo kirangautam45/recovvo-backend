@@ -1,0 +1,103 @@
+version: '3.4'
+
+volumes:
+  node_modules:
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - ${PWD}/create-multiple-database.sh:/docker-entrypoint-initdb.d/create-multiple-databases.sh
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: $LOCAL_DB_NAME,$COMMON_DB_NAME
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    ports:
+      - 5432:5432
+
+  api:
+    env_file: .env
+    build:
+      context: .
+      target: dev
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+    command: ['yarn', 'local']
+    ports:
+      - 8000:8000
+
+  migrate-common:
+    env_file: .env
+    build:
+      context: .
+      target: migrate-common
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+
+  rollback-common:
+    env_file: .env
+    build:
+      context: .
+      target: rollback-common
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+
+  setup-tenant:
+    env_file: .env
+    build:
+      context: .
+      target: setup-tenant
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+
+  migrate-tenant:
+    env_file: .env
+    build:
+      context: .
+      target: migrate-tenant
+    volumes:
+      - ./:/app
+
+    depends_on:
+      - postgres
+
+  rollback-tenant:
+    env_file: .env
+    build:
+      context: .
+      target: rollback-tenant
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+
+  gsuite-to-postgres:
+    environment:
+      - SCHEMA=$DATA_SCHEMA_NAME
+    image: spandan123/etl-poc:2.2
+    env_file: .env.docker.etl
+    volumes:
+      - ${COMPOSE_HOST_CRED_PATH}:/app/credentials.json
+    depends_on:
+      - postgres
+
+  pgadmin:
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./docker-compose-presets/servers.json:/pgadmin4/servers.json
+      - ./docker-compose-presets/pgpass.conf:/pgadmin4/pgpass.conf
+    image: dpage/pgadmin4
+    ports:
+      - 5000:80
+    depends_on:
+      - postgres

@@ -1,0 +1,36 @@
+const errors = {
+  MessageRejected: 'MessageRejected',
+  EmailNotSent: 'Email could not be sent to user',
+  UserNotFound: 'User not found',
+  TokenExpired: 'TokenExpiredError',
+  UpdateInformationEmpty: 'Update Information can not be empty',
+  SomethingWentWrong: 'Something went wrong',
+  UserAlreadyActivated: 'User already activated',
+  InvitationTokenNotFound: 'Invitation-token not in headers',
+  InvitationTokenExpired: 'Inviation-token expired',
+  OrganizationNotFound: 'Organization not found',
+  DepartmentNotFound: 'Department not found',
+  IndustryNotFound: 'Industry not found',
+  UserNotCreated: 'User could not be created',
+  OrganizationSizeNotFound: 'Organization Size not found',
+  SupervisorNotFound: 'SupervisorNotFound',
+  CollaborationNotFound: 'Collaboration Not found',
+  UserSupervisorNotMapped: 'User and Supervisor mapping not present',
+  UserCollaboratorNotMapped: 'User and collaborator mapping not present',
+  ResendInvitationNotRequired:
+    'The user does not need to be sent reinvitation email',
+  UserNotAllowed: 'User is not allowed to perform operation',
+  SupervisorAlreadyPresent: 'Supervisor is already assigned to User',
+  UserNotSupervisor: 'User is not a supervisor',
+  BadRequestDefault: 'Bad Request',
+  AliasNotFound: 'Alias not found',
+  UserAliasNotMapped: 'User and Alias mapping not present',
+  AliasAlreadyPresent: 'Alias is already assigned to User',
+  CollaboratorAlreadyExist: 'Collaborator is already assigned to User',
+  UserNotAlias: 'User is not an alias',
+  DefaultDurationSet: 'Default duration is set',
+  CollaboratorSuccessfullyMapped: 'Collaborator successfully mapped',
+  MappingRepeatedBelow: 'Mapping for same users exists below.'
+};
+
+export default errors;

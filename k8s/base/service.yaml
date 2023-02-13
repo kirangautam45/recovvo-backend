@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: recovvo-api
+  name: recovvo-api
+spec:
+  selector:
+    app: recovvo-api
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+      protocol: TCP
+  type: NodePort
