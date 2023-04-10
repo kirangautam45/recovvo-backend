@@ -69,7 +69,7 @@
     "@joi/date": "^2.1.0",
     "@leapfrogtechnology/async-store": "^1.2.0",
     "@leapfrogtechnology/db-model": "1.0.0-beta.3",
-    "aws-sdk": "^2.711.0",
+    "aws-sdk": "^2.1354.0",
     "axios": "0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
